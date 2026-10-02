@@ -6,5 +6,12 @@ module "vpc" {
   source = "./modules/vpc"
 
   vpc_cidr = "10.0.0.0/16"
-  vpc_name = "Terraform-Module-VPC"
+  vpc_name = "Dev-VPC"
+}
+
+module "prod_vpc" {
+  source = "./modules/vpc"
+
+  vpc_cidr = "10.1.0.0/16"
+  vpc_name = "Prod-VPC"
 }
