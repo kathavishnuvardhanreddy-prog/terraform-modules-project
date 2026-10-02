@@ -76,7 +76,8 @@ The module is reusable because the CIDR and VPC name are passed as variables.
 
 ## 2. Use the module
 
-main.tf`
+main.tf
+
 provider "aws" {
   region = "ap-south-1"
 }
@@ -96,6 +97,7 @@ module "prod_vpc" {
 }
 
 outputs.tf
+
 output "dev_vpc_id" {
   value = module.vpc.vpc_id
 }
