@@ -7,15 +7,20 @@ Run this on an Amazon Linux EC2 instance.
 
 Install Git, Terraform and AWS CLI:
 
-sudo dnf update -y
-sudo dnf install git awscli tree -y
-sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo dnf update -y,
+
+sudo dnf install git awscli tree -y,
+
+sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo,
+
 sudo dnf -y install terraform
 
 Verify:
 
 git --version
+
 terraform --version
+
 aws --version
 
 
@@ -27,6 +32,7 @@ Configure GitHub SSH access, then clone the repository:
 
 
 git clone git@github.com:<USERNAME>/terraform-modules-project.git
+
 cd terraform-modules-project
 
 
@@ -106,22 +112,37 @@ The same module is used twice with different values.
 ## 3. Run Terraform
 
 Initialize:
+
 terraform init
+
 Format and validate:
+
 terraform fmt
+
 terraform validate
+
 Check what Terraform will change:
+
 terraform plan
+
 Apply only after reviewing the plan:
+
 terraform apply
+
 Enter `yes` when prompted.
+
 Check the outputs:
 
 terraform output
+
 Check the resources managed by Terraform:
+
 terraform state list
+
 Expected resources:
+
 module.vpc.aws_vpc.this
+
 module.prod_vpc.aws_vpc.this
 
 ## 4. GitHub
@@ -133,7 +154,9 @@ git status
 Commit and push:
 
 git add .
+
 git commit -m "Reuse VPC module for dev and prod"
+
 git push origin main
 
 ## Important Terraform note
@@ -151,12 +174,19 @@ Always check `terraform plan` before `terraform apply`, especially when changing
 
 
 terraform init       # Initialize Terraform
+
 terraform fmt        # Format code
+
 terraform validate   # Validate configuration
+
 terraform plan       # Preview changes
+
 terraform apply      # Create/update resources
+
 terraform output     # Show outputs
+
 terraform state list # Show managed resources
+
 terraform destroy    # Remove managed resources
 
 
