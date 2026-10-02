@@ -24,16 +24,74 @@ terraform --version
 aws --version
 
 
-For AWS access, attach an IAM role to the EC2 instance with the required permissions and verify:
+## GitHub SSH Setup
 
-aws sts get-caller-identity
+Generate an SSH key on the EC2 instance:
 
-Configure GitHub SSH access, then clone the repository:
+```bash
+ssh-keygen -t ed25519 -C "your-github-email"
+```
 
+Press Enter to accept the default file location.
 
+This creates two files:
+
+- `~/.ssh/id_ed25519` → Private key. Do not share it.
+- `~/.ssh/id_ed25519.pub` → Public key. This is added to GitHub.
+
+Copy the public key:
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Copy the complete output and add it to:
+
+`GitHub → Settings → SSH and GPG keys → New SSH key`
+
+Use:
+
+```text
+Title: EC2-Terraform
+Key type: Authentication Key
+Key: Paste the copied public key
+```
+
+Click **Add SSH key**.
+
+Test the connection from EC2:
+
+```bash
+ssh -T git@github.com
+```
+
+If authentication is successful, GitHub will confirm the connection.
+
+Clone the repository using the SSH URL:
+
+```bash
 git clone git@github.com:<USERNAME>/terraform-modules-project.git
-
 cd terraform-modules-project
+```
+
+If the repository was already cloned using HTTPS, change it to SSH:
+
+```bash
+git remote set-url origin git@github.com:<USERNAME>/terraform-modules-project.git
+```
+
+Verify:
+
+```bash
+git remote -v
+```
+
+The remote should show:
+
+```text
+git@github.com:<USERNAME>/terraform-modules-project.git
+```
+
 
 
 ## 1. Create the VPC module
